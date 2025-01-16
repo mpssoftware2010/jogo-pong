@@ -33,8 +33,35 @@ let gameOver = false;
 let adCounter = 0;
 const AD_FREQUENCY = 3; // Mostra ad a cada 3 pontos marcados
 
-// Adicionar no início do arquivo, após as declarações de variáveis
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+// Substituir a detecção de mobile existente por uma mais robusta
+const isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (
+            isMobile.Android() || 
+            isMobile.BlackBerry() || 
+            isMobile.iOS() || 
+            isMobile.Opera() || 
+            isMobile.Windows() || 
+            ('ontouchstart' in window) || 
+            (window.matchMedia("(max-width: 768px)").matches)
+        );
+    }
+};
 
 // Função para entrar em fullscreen
 function enterFullscreen() {
@@ -97,11 +124,21 @@ function getRandomDirection() {
 // Ajuste do canvas para ser responsivo
 function resizeCanvas() {
     const container = document.querySelector('.game-container');
-    const containerWidth = container.clientWidth;
-    const containerHeight = window.innerHeight * 0.8;
-    
+    let containerWidth = container.clientWidth;
+    let containerHeight = window.innerHeight;
+
+    if (isMobile.any()) {
+        // Força aspect ratio 2:1 em mobile
+        if (window.innerWidth > window.innerHeight) {
+            containerHeight = window.innerHeight;
+            containerWidth = containerHeight * 2;
+        } else {
+            containerWidth = window.innerWidth;
+            containerHeight = containerWidth / 2;
+        }
+    }
+
     const scale = Math.min(containerWidth / 800, containerHeight / 400);
-    
     canvas.style.width = `${800 * scale}px`;
     canvas.style.height = `${400 * scale}px`;
 }
@@ -197,9 +234,45 @@ function setupGameControls() {
         });
     }
 
-    if (isMobile) {
+    if (isMobile.any()) {
+        // Força modo tela cheia em iOS
+        if (isMobile.iOS()) {
+            document.body.style.height = '100vh';
+            document.body.style.width = '100vw';
+            document.body.style.position = 'fixed';
+        }
+
         fullscreenBtn.style.display = 'block';
-        fullscreenBtn.addEventListener('click', enterFullscreen);
+        
+        // Verifica se o dispositivo suporta orientação landscape
+        if (screen.orientation && screen.orientation.type.includes('portrait')) {
+            alert('Por favor, rotacione seu dispositivo para landscape');
+        }
+
+        // Detecta mudanças de orientação
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                if (window.orientation === 0 || window.orientation === 180) {
+                    alert('Por favor, rotacione seu dispositivo para landscape');
+                } else {
+                    resizeCanvas();
+                }
+            }, 100);
+        });
+
+        // Previne zoom e comportamentos indesejados
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        // Mostra os controles mobile
+        document.querySelector('.mobile-controls').style.display = 'flex';
         
         // Tenta entrar em fullscreen automaticamente no primeiro toque
         document.addEventListener('touchstart', function initFullscreen() {
@@ -239,6 +312,7 @@ function setupGameControls() {
         });
     } else {
         fullscreenBtn.style.display = 'none';
+        document.querySelector('.mobile-controls').style.display = 'none';
     }
 }
 
