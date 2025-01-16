@@ -602,28 +602,45 @@ copyright-info a:hover {
         left: 0;
         pointer-events: none;
         z-index: 1000;
+        padding: 0;
     }
 
     .control-left, .control-right {
+        position: absolute;
         display: flex !important;
-        flex-direction: row;
+        flex-direction: column !important; /* Força direção vertical */
+        justify-content: center;
         align-items: center;
+        height: 100%;
+        width: 60px;
         gap: 20px;
-        padding: 10px;
         pointer-events: auto;
-        position: relative;
-        transform: none;
+        padding: 0;
+    }
+
+    .control-left {
+        left: 10px;
+    }
+
+    .control-right {
+        right: 10px;
     }
 
     .control-btn {
         width: 45px;
         height: 45px;
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        backdrop-filter: blur(5px);
         opacity: 0.5;
         transition: opacity 0.3s;
+        margin: 0;
     }
 
     .control-btn:active {
         opacity: 1;
+        background: rgba(255, 255, 255, 0.3);
     }
 }
 
