@@ -50,6 +50,8 @@ body {
     right: 0;
     justify-content: space-between;
     pointer-events: none; /* Permite clicar através da div container */
+    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 .control-left, .control-right {
@@ -641,6 +643,67 @@ copyright-info a:hover {
     .control-btn:active {
         opacity: 1;
         background: rgba(255, 255, 255, 0.3);
+    }
+
+    .mobile-controls {
+        position: fixed;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .control-left, .control-right {
+        position: fixed;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+        gap: 20px;
+        padding: 0;
+        pointer-events: auto;
+    }
+
+    .control-left {
+        left: 5px;
+    }
+
+    .control-right {
+        right: 5px;
+    }
+
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        margin: 5px;
+        opacity: 0.6;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .control-btn:active {
+        opacity: 1;
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Remover quaisquer estilos conflitantes */
+    .control-left, .control-right {
+        transform: none !important;
+        top: 0 !important;
+        bottom: 0 !important;
     }
 }
 

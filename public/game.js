@@ -182,6 +182,13 @@ const setupMobileControls = () => {
 
     // Prevenir comportamentos padrão do touch
     document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+
+    // Adicionar estilos de transição
+    if (mobileControls) {
+        mobileControls.style.transition = 'opacity 0.3s ease';
+        mobileControls.style.opacity = '1';
+        mobileControls.style.display = 'flex';
+    }
 };
 
 // Controles do jogo
@@ -588,6 +595,45 @@ function refreshAds() {
         }
     }
 }
+
+// Adicionar após as variáveis de estado
+let usingKeyboard = false; // Nova variável para controlar a visibilidade dos controles
+const mobileControls = document.querySelector('.mobile-controls');
+
+// Modificar os event listeners de teclado
+document.addEventListener('keydown', (e) => {
+    usingKeyboard = true;
+    if (mobileControls) {
+        mobileControls.style.opacity = '0';
+        // Mantém os controles no DOM mas invisíveis para poder voltar facilmente
+        setTimeout(() => {
+            if (usingKeyboard) {
+                mobileControls.style.display = 'none';
+            }
+        }, 300); // Aguarda a animação de fade out
+    }
+
+    if (e.key === 'w' || e.key === 'W') {
+        upPressed = true;
+    }
+    if (e.key === 's' || e.key === 'S') {
+        downPressed = true;
+    }
+    if (e.key === 'ArrowUp') arrowUpPressed = true;
+    if (e.key === 'ArrowDown') arrowDownPressed = true;
+});
+
+// Adicionar touchstart listener para mostrar controles novamente
+document.addEventListener('touchstart', () => {
+    if (usingKeyboard && mobileControls) {
+        usingKeyboard = false;
+        mobileControls.style.display = 'flex';
+        // Pequeno delay para permitir que o display: flex seja aplicado antes da opacidade
+        requestAnimationFrame(() => {
+            mobileControls.style.opacity = '1';
+        });
+    }
+});
 
 // Inicia o jogo com direção aleatória
 resetBall();
