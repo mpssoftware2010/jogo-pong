@@ -414,235 +414,34 @@ copyright-info a:hover {
 @media (max-width: 768px) and (orientation: landscape) {
     body {
         height: 100vh;
-        padding: 10px;
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         overflow: hidden;
     }
 
     .game-container {
         position: relative;
         width: auto;
-        height: 90vh;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     #gameCanvas {
-        height: 100%;
+        height: 95vh; /* Reduzido para 95vh para garantir que caiba na tela */
         width: auto;
         max-width: none;
         aspect-ratio: 2/1;
-    }
-
-    .mobile-controls {
-        background: none;
-        backdrop-filter: none;
-        display: flex !important;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 0;
-        pointer-events: none;
-    }
-
-    .control-left, .control-right {
-        position: absolute;
-        display: flex !important;
-        flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-        height: 100%;
-        width: 60px;
-        padding: 0;
-        pointer-events: auto;
-    }
-
-    .control-left {
-        left: 0;
-    }
-
-    .control-right {
-        right: 0;
-    }
-
-    .control-btn {
-        width: 55px;
-        height: 55px;
-        margin: 0;
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        backdrop-filter: blur(5px);
-        opacity: 0.5;
-        transition: opacity 0.3s;
-    }
-
-    .control-btn:active {
-        opacity: 1;
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .copyright {
-        display: none; /* Oculta o copyright em landscape para dar mais espaço */
-    }
-
-    .copyright {
-        font-size: 10px;
-        bottom: 2px;
-    }
-
-    .game-controls {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px;
-        gap: 8px;
-        background: rgba(0, 0, 0, 0.2);
-        opacity: 0.3;
-        transition: opacity 0.3s;
-        z-index: 2000;
-    }
-
-    .control-game-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-    }
-
-    .game-controls:hover {
-        opacity: 1;
-    }
-
-    body {
-        padding: 0;
-    }
-
-    .game-container {
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-
-    #gameCanvas {
-        height: 100vh;
-        width: auto;
-        border-width: 0;
-        border-radius: 0;
-        box-shadow: none;
-    }
-
-    .control-left {
-        left: 0;
-        width: 40px;
-    }
-
-    .control-right {
-        right: 0;
-        width: 40px;
-    }
-
-    .control-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        opacity: 0.3;
-        margin: 1px;
-    }
-
-    .control-btn:active {
-        opacity: 0.8;
-    }
-
-    .game-controls {
-        transform: translateX(-50%) scale(0.7);
-        bottom: 2px;
-        opacity: 0.3;
-        z-index: 2000;
-    }
-
-    .game-controls:hover,
-    .game-controls:active {
-        opacity: 0.8;
-    }
-
-    .game-controls {
-        top: auto;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        padding: 5px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        opacity: 0.4;
-        z-index: 2000;
-        transition: opacity 0.3s;
-    }
-
-    .game-controls:hover,
-    .game-controls:active {
-        opacity: 1;
-    }
-
-    .control-game-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-
-    .mobile-controls {
-        position: fixed;
-        display: flex !important;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 1000;
-        padding: 0;
-    }
-
-    .control-left, .control-right {
-        position: absolute;
-        display: flex !important;
-        flex-direction: column !important; /* Força direção vertical */
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 60px;
-        gap: 20px;
-        pointer-events: auto;
-        padding: 0;
-    }
-
-    .control-left {
-        left: 10px;
-    }
-
-    .control-right {
-        right: 10px;
-    }
-
-    .control-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        backdrop-filter: blur(5px);
-        opacity: 0.5;
-        transition: opacity 0.3s;
-        margin: 0;
-    }
-
-    .control-btn:active {
-        opacity: 1;
-        background: rgba(255, 255, 255, 0.3);
+        margin: 0 auto;
+        display: block;
+        border-width: 2px;
     }
 
     .mobile-controls {
@@ -666,45 +465,312 @@ copyright-info a:hover {
         align-items: center;
         height: 100vh;
         width: auto;
-        gap: 20px;
+        gap: 50px !important;
         padding: 0;
         pointer-events: auto;
     }
 
     .control-left {
-        left: 5px;
+        left: 10px;
     }
 
     .control-right {
-        right: 5px;
+        right: 10px;
     }
+}
 
-    .control-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        border-radius: 50%;
-        color: white;
-        margin: 5px;
-        opacity: 0.6;
-        backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
-    }
+body {
+    height: 100vh;
+    padding: 10px;
+    overflow: hidden;
+}
 
-    .control-btn:active {
-        opacity: 1;
-        transform: scale(1.1);
-        background: rgba(255, 255, 255, 0.3);
-    }
+.game-container {
+    position: relative;
+    width: auto;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    /* Remover quaisquer estilos conflitantes */
-    .control-left, .control-right {
-        transform: none !important;
-        top: 0 !important;
-        bottom: 0 !important;
-    }
+#gameCanvas {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    aspect-ratio: 2/1;
+}
+
+.mobile-controls {
+    background: none;
+    backdrop-filter: none;
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.control-left, .control-right {
+    position: absolute;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    width: 60px;
+    padding: 0;
+    pointer-events: auto;
+}
+
+.control-left {
+    left: 0;
+}
+
+.control-right {
+    right: 0;
+}
+
+.control-btn {
+    width: 55px;
+    height: 55px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    backdrop-filter: blur(5px);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.control-btn:active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.copyright {
+    display: none; /* Oculta o copyright em landscape para dar mais espaço */
+}
+
+.copyright {
+    font-size: 10px;
+    bottom: 2px;
+}
+
+.game-controls {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0.3;
+    transition: opacity 0.3s;
+    z-index: 2000;
+}
+
+.control-game-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+}
+
+.game-controls:hover {
+    opacity: 1;
+}
+
+body {
+    padding: 0;
+}
+
+.game-container {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#gameCanvas {
+    height: 100vh;
+    width: auto;
+    border-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.control-left {
+    left: 0;
+    width: 40px;
+}
+
+.control-right {
+    right: 0;
+    width: 40px;
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    opacity: 0.3;
+    margin: 1px;
+}
+
+.control-btn:active {
+    opacity: 0.8;
+}
+
+.game-controls {
+    transform: translateX(-50%) scale(0.7);
+    bottom: 2px;
+    opacity: 0.3;
+    z-index: 2000;
+}
+
+.game-controls:hover,
+.game-controls:active {
+    opacity: 0.8;
+}
+
+.game-controls {
+    top: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    opacity: 0.4;
+    z-index: 2000;
+    transition: opacity 0.3s;
+}
+
+.game-controls:hover,
+.game-controls:active {
+    opacity: 1;
+}
+
+.control-game-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+}
+
+.mobile-controls {
+    position: fixed;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+    padding: 0;
+}
+
+.control-left, .control-right {
+    position: absolute;
+    display: flex !important;
+    flex-direction: column !important; /* Força direção vertical */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+    gap: 20px;
+    pointer-events: auto;
+    padding: 0;
+}
+
+.control-left {
+    left: 10px;
+}
+
+.control-right {
+    right: 10px;
+}
+
+.control-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    backdrop-filter: blur(5px);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    margin: 0;
+}
+
+.control-btn:active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.mobile-controls {
+    position: fixed;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.control-left, .control-right {
+    position: fixed;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: auto;
+    gap: 50px !important; /* Aumenta o espaçamento entre os botões */
+    padding: 0;
+    pointer-events: auto;
+}
+
+.control-left {
+    left: 5px;
+}
+
+.control-right {
+    right: 5px;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    margin: 5px;
+    opacity: 0.6;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.control-btn:active {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Remover quaisquer estilos conflitantes */
+.control-left, .control-right {
+    transform: none !important;
+    top: 0 !important;
+    bottom: 0 !important;
 }
 
 /* Ajustes para fullscreen */
