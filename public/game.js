@@ -33,6 +33,29 @@ let gameOver = false;
 let adCounter = 0;
 const AD_FREQUENCY = 3; // Mostra ad a cada 3 pontos marcados
 
+// Adicionar no início do arquivo, após as declarações de variáveis
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// Função para entrar em fullscreen
+function enterFullscreen() {
+    const element = document.documentElement;
+    
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+
+    // Tenta forçar orientação landscape
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(function(error) {
+            console.warn('Erro ao forçar orientação:', error);
+        });
+    }
+}
+
 // Adiciona os event listeners para as teclas
 document.addEventListener('keydown', (e) => {
     if (e.key === 'w' || e.key === 'W') {
@@ -110,11 +133,13 @@ const setupMobileControls = () => {
 
 // Controles do jogo
 function setupGameControls() {
+    const gameControls = document.querySelector('.game-controls');
     const pauseBtn = document.getElementById('pauseBtn');
     const restartBtn = document.getElementById('restartBtn');
     const aboutBtn = document.getElementById('aboutBtn');
     const modal = document.getElementById('aboutModal');
     const closeBtn = document.querySelector('.close-btn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
 
     pauseBtn.addEventListener('click', () => {
         isPaused = !isPaused;
@@ -170,6 +195,50 @@ function setupGameControls() {
                 restartBtn.click();
             }
         });
+    }
+
+    if (isMobile) {
+        fullscreenBtn.style.display = 'block';
+        fullscreenBtn.addEventListener('click', enterFullscreen);
+        
+        // Tenta entrar em fullscreen automaticamente no primeiro toque
+        document.addEventListener('touchstart', function initFullscreen() {
+            enterFullscreen();
+            document.removeEventListener('touchstart', initFullscreen);
+        }, { once: true });
+
+        // Mostra alerta para rotacionar se estiver em portrait
+        if (window.innerHeight > window.innerWidth) {
+            alert('Por favor, rotacione seu dispositivo para melhor experiência');
+        }
+
+        // Oculta controles após 3 segundos de inatividade
+        let controlsTimeout;
+        
+        function showControls() {
+            gameControls.style.opacity = '0.6';
+            clearTimeout(controlsTimeout);
+            controlsTimeout = setTimeout(() => {
+                if (!isPaused) {
+                    gameControls.style.opacity = '0.2';
+                }
+            }, 3000);
+        }
+
+        // Mostrar controles ao tocar na tela
+        document.addEventListener('touchstart', showControls);
+        
+        // Manter controles visíveis quando pausado
+        pauseBtn.addEventListener('click', () => {
+            if (isPaused) {
+                gameControls.style.opacity = '0.6';
+                clearTimeout(controlsTimeout);
+            } else {
+                showControls();
+            }
+        });
+    } else {
+        fullscreenBtn.style.display = 'none';
     }
 }
 

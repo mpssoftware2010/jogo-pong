@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="orientation" content="landscape">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="screen-orientation" content="landscape">
+    <meta name="msapplication-orientation" content="landscape">
     <title>Jogo Pong</title>
     <link rel="stylesheet" href="./styles.css">
     <!-- AdSense -->
@@ -12,6 +16,7 @@
 </head>
 <body>
     <div class="game-controls">
+        <button id="fullscreenBtn" class="control-game-btn">📱</button>
         <button id="pauseBtn" class="control-game-btn">⏸️</button>
         <button id="restartBtn" class="control-game-btn">🔄</button>
         <button id="aboutBtn" class="control-game-btn">ℹ️</button>
@@ -54,7 +59,7 @@
         </div>
     </div>
 
-    <!-- Modal de Vitória com Ad -->
+    <!-- Modal de Vitória com Ad 3 -->
     <div id="victoryModal" class="modal">
         <div class="modal-content">
             <div class="victory-ad">
