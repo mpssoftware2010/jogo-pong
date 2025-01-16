@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="orientation" content="landscape">
+    <title>Jogo Pong</title>
+    <link rel="stylesheet" href="./styles.css">
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=seu-client-id"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Ad Banner Superior -->
+    <div class="ad-container ad-top">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="seu-client-id"
+             data-ad-slot="seu-ad-slot"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="game-controls">
+        <button id="pauseBtn" class="control-game-btn">⏸️</button>
+        <button id="restartBtn" class="control-game-btn">🔄</button>
+        <button id="aboutBtn" class="control-game-btn">ℹ️</button>
+    </div>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="mobile-controls">
+            <div class="control-left">
+                <button id="up1" class="control-btn">▲</button>
+                <button id="down1" class="control-btn">▼</button>
+            </div>
+            <div class="control-right">
+                <button id="up2" class="control-btn">▲</button>
+                <button id="down2" class="control-btn">▼</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Banner Inferior -->
+    <div class="ad-container ad-bottom">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="seu-client-id"
+             data-ad-slot="seu-ad-slot"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Modal Sobre -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Sobre o Jogo</h2>
+            <div class="about-content">
+                <h3>Como Jogar</h3>
+                <p>Use W/S ou ⬆️/⬇️ para mover as raquetes</p>
+                <p>Evite que a bola passe por sua raquete</p>
+                <p>Primeiro a fazer 10 pontos vence!</p>
+
+                <h3>Controles</h3>
+                <p>⏸️ - Pausar jogo</p>
+                <p>🔄 - Reiniciar jogo</p>
+                <p>ℹ️ - Sobre o jogo</p>
+
+                <div class="copyright-info">
+                    <p>© 2024 MPS Software - Todos os direitos reservados</p>
+                    <p><a href="mailto:mpssoftware2010@gmail.com">mpssoftware2010@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Vitória com Ad -->
+    <div id="victoryModal" class="modal">
+        <div class="modal-content">
+            <div class="victory-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="seu-client-id"
+                     data-ad-slot="seu-ad-slot"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+            <button id="continueBtn" class="control-game-btn">Continuar Jogando</button>
+        </div>
+    </div>
+
+    <script src="./game.js"></script>
+</body>
+</html>
