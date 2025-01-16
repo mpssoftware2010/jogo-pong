@@ -231,6 +231,43 @@ copyright-info a:hover {
     .mobile-controls {
         display: flex;
         padding: 0;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        z-index: 100;
+    }
+
+    .control-left, .control-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        padding: 0;
+    }
+
+    .control-left {
+        left: 0;
+    }
+
+    .control-right {
+        right: 0;
+    }
+
+    .control-btn {
+        width: 60px;
+        height: 60px;
+        margin: 5px;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        backdrop-filter: blur(5px);
+        opacity: 0.7;
     }
 
     .copyright {
@@ -320,6 +357,54 @@ copyright-info a:hover {
             font-size: 20px;
         }
     }
+
+    .game-container {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    #gameCanvas {
+        border-width: 2px;
+        max-height: 100vh;
+        margin: 0;
+    }
+
+    .control-left, .control-right {
+        width: 50px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        margin: 2px;
+    }
+
+    .game-controls {
+        top: auto;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+        padding: 5px;
+        gap: 5px;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0.3;
+        transition: opacity 0.3s;
+    }
+
+    .control-game-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 @media (max-width: 768px) and (orientation: landscape) {
@@ -348,32 +433,50 @@ copyright-info a:hover {
     .mobile-controls {
         background: none;
         backdrop-filter: none;
-    }
-
-    .control-left {
-        padding-left: 10px;
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        bottom: 0;
         left: 0;
-        position: absolute;
-    }
-
-    .control-right {
-        padding-right: 10px;
         right: 0;
-        position: absolute;
-    }
-
-    .control-btn {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(5px);
-        width: 60px;
-        height: 60px;
-        font-size: 20px;
-        opacity: 0.6;
+        padding: 0;
+        pointer-events: none;
     }
 
     .control-left, .control-right {
-        display: flex;
+        position: absolute;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
         gap: 10px;
+        height: 100%;
+        width: 60px;
+        padding: 0;
+        pointer-events: auto;
+    }
+
+    .control-left {
+        left: 0;
+    }
+
+    .control-right {
+        right: 0;
+    }
+
+    .control-btn {
+        width: 55px;
+        height: 55px;
+        margin: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        backdrop-filter: blur(5px);
+        opacity: 0.5;
+        transition: opacity 0.3s;
+    }
+
+    .control-btn:active {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.3);
     }
 
     .copyright {
@@ -397,6 +500,58 @@ copyright-info a:hover {
     .game-controls:hover {
         opacity: 1;
     }
+
+    body {
+        padding: 0;
+    }
+
+    .game-container {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    #gameCanvas {
+        height: 100vh;
+        width: auto;
+        border-width: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .control-left {
+        left: 0;
+        width: 40px;
+    }
+
+    .control-right {
+        right: 0;
+        width: 40px;
+    }
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        opacity: 0.3;
+        margin: 1px;
+    }
+
+    .control-btn:active {
+        opacity: 0.8;
+    }
+
+    .game-controls {
+        transform: translateX(-50%) scale(0.7);
+        bottom: 2px;
+        opacity: 0.3;
+        z-index: 2000;
+    }
+
+    .game-controls:hover,
+    .game-controls:active {
+        opacity: 0.8;
+    }
 }
 
 /* Adicionar após os estilos dos controles existentes */
@@ -409,10 +564,18 @@ copyright-info a:hover {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
+    #gameCanvas {
+        border: none;
+        border-radius: 0;
+    }
 }
 
 :-webkit-full-screen {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
+    #gameCanvas {
+        border: none;
+        border-radius: 0;
+    }
 }
