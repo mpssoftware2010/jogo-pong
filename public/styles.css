@@ -88,9 +88,9 @@ body {
 
 .game-controls {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    transform: none;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
     display: flex;
     gap: 15px;
@@ -280,10 +280,12 @@ copyright-info a:hover {
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        right: auto;
+        padding: 5px;
+        gap: 8px; /* Ajustar gap para 3 botões */
         background: rgba(0, 0, 0, 0.2);
         opacity: 0.4;
         transition: opacity 0.3s;
+        z-index: 2000;
     }
 
     .game-controls:hover,
@@ -489,12 +491,22 @@ copyright-info a:hover {
     }
 
     .game-controls {
-        top: 5px;
-        right: 5px;
-        transform: translateX(-50%) scale(0.8);
-        bottom: 5px;
-        transform-origin: top right;
-        opacity: 0.6;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px;
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0.3;
+        transition: opacity 0.3s;
+        z-index: 2000;
+    }
+
+    .control-game-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
     }
 
     .game-controls:hover {
@@ -552,11 +564,67 @@ copyright-info a:hover {
     .game-controls:active {
         opacity: 0.8;
     }
-}
 
-/* Adicionar após os estilos dos controles existentes */
-#fullscreenBtn {
-    display: none; /* Inicialmente oculto, será mostrado apenas em dispositivos móveis */
+    .game-controls {
+        top: auto;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        opacity: 0.4;
+        z-index: 2000;
+        transition: opacity 0.3s;
+    }
+
+    .game-controls:hover,
+    .game-controls:active {
+        opacity: 1;
+    }
+
+    .control-game-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .mobile-controls {
+        position: fixed;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .control-left, .control-right {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;
+        pointer-events: auto;
+        position: relative;
+        transform: none;
+    }
+
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+    }
+
+    .control-btn:active {
+        opacity: 1;
+    }
 }
 
 /* Ajustes para fullscreen */

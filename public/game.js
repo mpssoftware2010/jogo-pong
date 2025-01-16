@@ -33,6 +33,11 @@ let gameOver = false;
 let adCounter = 0;
 const AD_FREQUENCY = 3; // Mostra ad a cada 3 pontos marcados
 
+// Adicionar após as variáveis de estado
+const ballTrail = []; // Array para armazenar as posições anteriores da bola
+const TRAIL_LENGTH = 5; // Quantidade de posições para o rastro
+const TRAIL_OPACITY = 0.3; // Opacidade inicial do rastro
+
 // Substituir a detecção de mobile existente por uma mais robusta
 const isMobile = {
     Android: function() {
@@ -67,19 +72,30 @@ const isMobile = {
 function enterFullscreen() {
     const element = document.documentElement;
     
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    }
-
-    // Tenta forçar orientação landscape
+    // Tenta forçar orientação landscape antes do fullscreen
     if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock('landscape').catch(function(error) {
-            console.warn('Erro ao forçar orientação:', error);
-        });
+        screen.orientation.lock('landscape')
+            .then(() => {
+                // Após garantir orientação, entra em fullscreen
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            })
+            .catch(function(error) {
+                console.warn('Erro ao forçar orientação:', error);
+                // Tenta entrar em fullscreen mesmo se falhar a orientação
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            });
     }
 }
 
@@ -240,6 +256,11 @@ function setupGameControls() {
             document.body.style.height = '100vh';
             document.body.style.width = '100vw';
             document.body.style.position = 'fixed';
+            
+            // Tenta forçar orientação em iOS
+            if (window.orientation !== 90 && window.orientation !== -90) {
+                alert('Por favor, rotacione seu dispositivo para modo paisagem');
+            }
         }
 
         fullscreenBtn.style.display = 'block';
@@ -310,6 +331,25 @@ function setupGameControls() {
                 showControls();
             }
         });
+
+        // Verifica e força orientação a cada mudança
+        window.addEventListener('orientationchange', function() {
+            if (screen.orientation && screen.orientation.type.includes('portrait')) {
+                screen.orientation.lock('landscape').catch(console.warn);
+            }
+        });
+
+        // Força orientação ao iniciar
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(console.warn);
+        }
+
+        // Tenta forçar orientação periodicamente (alguns dispositivos são teimosos)
+        setInterval(() => {
+            if (window.orientation === 0 || window.orientation === 180) {
+                screen.orientation.lock('landscape').catch(console.warn);
+            }
+        }, 1000);
     } else {
         fullscreenBtn.style.display = 'none';
         document.querySelector('.mobile-controls').style.display = 'none';
@@ -414,6 +454,7 @@ function resetBall() {
     ballSpeedX = newDirection.x;
     ballSpeedY = newDirection.y;
     ballRotation = 0; // Reseta a rotação
+    ballTrail.length = 0; // Limpa o rastro quando a bola é resetada
 }
 
 // Desenha os elementos do jogo
@@ -440,7 +481,25 @@ function draw() {
     ctx.fillRect(30, player1Y, paddleWidth, paddleHeight);
     ctx.fillRect(canvas.width - paddleWidth - 30, player2Y, paddleWidth, paddleHeight);
 
+    // Desenha o rastro da bola
+    ballTrail.forEach((pos, index) => {
+        const opacity = TRAIL_OPACITY * (1 - index / TRAIL_LENGTH);
+        ctx.save();
+        ctx.translate(pos.x, pos.y);
+        ctx.rotate(pos.rotation);
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(ballImage, -ballSize, -ballSize, ballSize * 2, ballSize * 2);
+        ctx.restore();
+    });
+
+    // Atualiza o array do rastro
+    ballTrail.unshift({ x: ballX, y: ballY, rotation: ballRotation });
+    if (ballTrail.length > TRAIL_LENGTH) {
+        ballTrail.pop();
+    }
+
     // Desenha a bola usando a imagem com rotação
+    ctx.globalAlpha = 1;
     ctx.save();
     ctx.translate(ballX, ballY);
     ctx.rotate(ballRotation); // Aplica a rotação
